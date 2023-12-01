@@ -8,7 +8,8 @@ import { AppRoutes } from "./routes";
   
 async function main() {
     const server = new Server({
-      port: 8080,
+      port: envs.PORT,
+      public_path: envs.PUBLIC_PATH,
       routes: AppRoutes.routes,
     });
   
