@@ -4,14 +4,14 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://u969848039_admin:Xzdjnmb3L~@srv1048.hstgr.io:3306/u969848039_landingDb"
+  url      = env("MYSQL_URL")
 }
 
 model BLOG {
   BLO_ID          Int              @id @default(autoincrement())
   BLO_TITLE       String           @db.VarChar(50)
   BLO_DESCRIPTION String           @db.VarChar(250)
-  BLO_CONTENT     String           @db.LongText
+  BLO_CONTENT     String           @db.Text
   BLO_IMG_URL1    String           @db.VarChar(500)
   BLO_IMG_URL2    String           @db.VarChar(500)
   BLO_STATUS      Int              @default(1)
@@ -32,11 +32,11 @@ model CATEGORIE_BLOG {
   CATBL_DAY       Int
   CATBL_MONTH     Int
   CATBL_YEAR      Int
-  BLOG            BLOG      @relation(fields: [CATBL_BLOG], references: [BLO_ID], onDelete: NoAction, onUpdate: NoAction, map: "blog_categorie_blog")
-  CATEGORIE       CATEGORIE @relation(fields: [CATBL_CATEGORIE], references: [CAT_ID], onDelete: NoAction, onUpdate: NoAction, map: "categorie_categorie_blog")
+  BLOG            BLOG      @relation(fields: [CATBL_BLOG], references: [BLO_ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_categorie_blog_blog")
+  CATEGORIE       CATEGORIE @relation(fields: [CATBL_CATEGORIE], references: [CAT_ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_categorie_blog_categorie")
 
-  @@index([CATBL_BLOG], map: "blog_categorie_blog_idx")
-  @@index([CATBL_CATEGORIE], map: "categorie_categorie_blog_idx")
+  @@index([CATBL_BLOG], map: "fk_categorie_blog_blog_idx")
+  @@index([CATBL_CATEGORIE], map: "fk_categorie_blog_categorie_idx")
 }
 
 model CONTACT {

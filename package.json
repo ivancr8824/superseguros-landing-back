@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
+    "build": "rimraf ./build && tsc",
+    "start": "node build/index.js",
     "dev": "ts-node-dev src/index.ts",
-    "start:preProd": "node build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:init": "npx prisma init --datasource-provider mysql",
+    "prisma:migrate": "npx prisma migrate dev --name",
     "prisma:model": "npx prisma db pull",
     "prisma:generate": "npx prisma generate"
   },
@@ -26,6 +27,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "env-var": "^7.4.1",
-    "express": "4.18.2"
+    "express": "4.18.2",
+    "rimraf": "^5.0.5"
   }
 }
