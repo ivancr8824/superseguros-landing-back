@@ -1,0 +1,31 @@
+{
+  "name": "landingpageback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node-dev src/index.ts",
+    "start:preProd": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:model": "npx prisma db pull",
+    "prisma:generate": "npx prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "prisma": "^5.6.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "env-var": "^7.4.1",
+    "express": "4.18.2"
+  }
+}
