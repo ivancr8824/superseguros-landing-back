@@ -1,6 +1,6 @@
 import { prisma } from "../../db/mysql";
 import { GetVideoDto } from "../../dtos";
-import { STATUS_CODE } from "../../enums";
+import { STATUS_CODE, STATUS_RECORD } from "../../enums";
 import { getRandomVideo } from "../../helper";
 import { ResponseHttp } from "../../interfaces";
 import { IVideo } from "./IVideo";
@@ -10,7 +10,7 @@ export class BVideo implements IVideo {
         try {
             const videos = await prisma.vIDEO.findMany({
                 where: {
-                    VID_STATUS: 1
+                    VID_STATUS: STATUS_RECORD.ACTIVE
                 }
             });
 

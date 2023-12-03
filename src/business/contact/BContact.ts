@@ -4,21 +4,23 @@ import { STATUS_CODE, TYPE_CONTACT } from "../../enums";
 import { ResponseHttp } from "../../interfaces";
 import { IContact } from "./IContact";
 import { prisma } from "../../db/mysql";
+import moment from "moment";
 
 export class BContact implements IContact {
     public async createContact(createContactDto: CreateContactDto): Promise<ResponseHttp<string>> {
         try {
             const { name, lastName, email, phone, address, dateVisit, hour, message, subject, status, typeContact } = createContactDto.contact;
             let contact: Prisma.CONTACTCreateInput;
-            
+
             switch(typeContact) {
                 case TYPE_CONTACT.VIRTUAL:
-                    contact = {
+               
+                contact = {
                         CON_NAME: name.toUpperCase().trim(),
                         CON_LASTNAME: lastName.toUpperCase().trim(),
                         CON_EMAIL: email.toLowerCase().trim(),
                         CON_PHONE: phone.trim(),
-                        CON_DATE_VISIT: new Date(dateVisit!),
+                        CON_DATE_VISIT: moment(dateVisit!, 'DD/MM/YYYY').toDate(),
                         CON_HOUR: hour?.trim(),
                         CON_TYPE_CONTACT: TYPE_CONTACT.VIRTUAL,
                         CON_STATUS: status
@@ -31,7 +33,7 @@ export class BContact implements IContact {
                         CON_EMAIL: email.toLowerCase().trim(),
                         CON_PHONE: phone.trim(),
                         CON_ADDRESS: address,
-                        CON_DATE_VISIT: new Date(dateVisit!),
+                        CON_DATE_VISIT: moment(dateVisit!, 'DD/MM/YYYY').toDate(),
                         CON_HOUR: hour?.trim(),
                         CON_TYPE_CONTACT: TYPE_CONTACT.PRESENTIAL,
                         CON_STATUS: status

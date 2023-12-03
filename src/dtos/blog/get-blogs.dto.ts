@@ -1,17 +1,15 @@
+import { BlogInformation } from "../../interfaces";
+
 export class GetBlogDto {
     private constructor(
-        public readonly id: number,
-        public readonly title: string,
-        public readonly description?: string,
-        public readonly content?: string,
-        public readonly imageUrl1?: string,
-        public readonly imageUrl2?: string,
-        public readonly day?: number,
-        public readonly month?: number,
+        public readonly page: number,
+        public readonly totalRecords: number,
+        public readonly totalPage: number,
+        public readonly blogs: BlogInformation[] 
     ){}
 
     public static create(object: { [key: string]: any }): GetBlogDto {
-        const { id, title, description, content, imageUrl1, imageUrl2, day, month } = object;
-        return new GetBlogDto(id, title, description, content, imageUrl1, imageUrl2, day, month);
+        const { blogs, page, totalPage, totalRecords } = object;
+        return new GetBlogDto(page, totalRecords, totalPage, blogs);
     }
 }

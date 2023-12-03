@@ -1,6 +1,6 @@
 import { prisma } from "../../db/mysql";
 import { GetCategoryDto } from "../../dtos";
-import { STATUS_CODE } from "../../enums";
+import { STATUS_CODE, STATUS_RECORD } from "../../enums";
 import { ResponseHttp } from "../../interfaces";
 import { ICategory } from "./ICategorie";
 
@@ -18,7 +18,7 @@ export class BCategory implements ICategory {
                     }
                 },
                 where: {
-                    CAT_STATUS: 1
+                    CAT_STATUS: STATUS_RECORD.ACTIVE
                 }
             });
 
@@ -31,7 +31,12 @@ export class BCategory implements ICategory {
 
             return {
                 status: STATUS_CODE.OK,
-                data: categories.map(({ CAT_ID:id, CAT_TITLE:name, CATEGORIE_BLOG }) => GetCategoryDto.create({ id, name, years: CATEGORIE_BLOG.map(cb => cb.CATBL_YEAR).filter((value, index, self) => self.indexOf(value) === index) }))
+                data: categories.map(({ CAT_ID:id, CAT_TITLE:name, CATEGORIE_BLOG }, index) => GetCategoryDto.create({ 
+                    id,
+                    ariaExpanded: (index === 0) ? true : false,
+                    name, 
+                    years: CATEGORIE_BLOG.map(cb => cb.CATBL_YEAR).filter((value, index, self) => self.indexOf(value) === index) 
+                }))
             }
        } catch (error) {
             console.log(error);

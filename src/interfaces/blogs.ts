@@ -1,5 +1,10 @@
 import { STATUS_RECORD } from "../enums";
 
+export interface BlogInformation extends Blog {
+    day: number,
+    month: number,
+}
+
 export interface Blog {
     id: number;
     title: string;

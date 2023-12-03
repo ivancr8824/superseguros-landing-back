@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import { Options } from "../interfaces";
 import path from 'path';
+import cors from "cors";
 
 export class Server {
 
@@ -18,6 +19,7 @@ export class Server {
     }
 
     public async start() {
+        this.app.use(cors());
         this.app.use( express.json() );
         this.app.use( express.static( this.publicPath ) );
         this.app.use( this.routes );
