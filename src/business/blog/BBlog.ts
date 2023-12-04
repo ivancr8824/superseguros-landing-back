@@ -1,6 +1,6 @@
 import { STATUS_RECORD } from './../../enums/common';
 import { prisma } from "../../db/mysql";
-import { GetBlogDto } from "../../dtos";
+import { GetBlogByIdDto, GetBlogDto } from "../../dtos";
 import { STATUS_CODE } from "../../enums";
 import { BlogInformation, ResponseHttp } from "../../interfaces";
 import { IBlog } from "./IBlog";
@@ -67,7 +67,7 @@ export class BBlog implements IBlog {
         }
     }
 
-    public async getBlog(blogId: number): Promise<ResponseHttp<GetBlogDto>> {
+    public async getBlog(blogId: number): Promise<ResponseHttp<GetBlogByIdDto>> {
         try {
             const blog = await prisma.bLOG.findFirst({
                 where: {
@@ -87,7 +87,7 @@ export class BBlog implements IBlog {
     
             return {
                 status: STATUS_CODE.OK,
-                data: GetBlogDto.create({ id, title, content, imageUrl2 })
+                data: GetBlogByIdDto.create({ id, title, content, imageUrl2 })
             }
         } catch (error) {
             console.log(error);
